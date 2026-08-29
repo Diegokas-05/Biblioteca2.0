@@ -18,21 +18,50 @@ class Biblioteca:
         self.usuarios.append(usuario)
         return f"El usuario {usuario.nombre} ya es miembro de la biblioteca."
 
+    #metodo para bucar un usuario por su cedula
+    def buscar_usuario(self, cedula):
+        #recorremos la lista de usuarios y comparamos la cedula que nos pasan con la cedula de cada usuario
+        for usuario in self.usuarios:
+            if usuario.cedula == cedula:
+                return usuario # si encontramos el usuario lo retornamos completo el usuario
 
-# 1. Creamos nuestra Biblioteca
-mi_biblio = Biblioteca("Biblioteca Central")
+        return None # si termina el ciclo y no encuentra el usuario retornamos None
 
-# 2. Fabricamos un libro y un estudiante usando las clases que IMPORTAMOS arriba
-nuevo_libro = LibroFisico("Cien Años de Soledad", "Gabriel García Márquez", "123")
-nuevo_estudiante = Estudiante("Juan", "001", "Ingeniería")
+    #Metodo para buscar libros por su titulo
+    def buscar_libro(self, titulo):
+        for libro in self.libros:
+            if libro.titulo ==titulo and libro.disponible == True: #comparamos el titulo que nos pasan con el titulo de cada libro y ademas verificamos que este disponible
+                return libro 
+            
+        return None
 
-# 3. Metemos el libro y el estudiante dentro de la biblioteca
-mensaje_libro = mi_biblio.registrar_libro(nuevo_libro)
-mensaje_usuario = mi_biblio.registrar_usuario(nuevo_estudiante)
+    def realizar_prestamo(self, cedula_usuario, titulo_libros):
+        #usamos nuestros propios metodo para buscar
+        usuario_encontrado = self.buscar_usuario(cedula_usuario)
+        libro_encontrado = self.buscar_libro(titulo_libros)
 
-print(mensaje_libro)
-print(mensaje_usuario)
+        if usuario_encontrado == None:
+            return "Error: El usuario no esta registrado"
 
-# 4. Verificamos que realmente están guardados en las listas
-print(f"Total de libros guardados: {len(mi_biblio.libros)}")
-print(f"Total de usuarios guardados: {len(mi_biblio.usuarios)}")
+        if libro_encontrado == None:
+            return "Error: El libro no esta disponible"
+
+        mensaje = libro_encontrado.prestar()
+
+        usuario_encontrado.libros_prestados.append(libro_encontrado.titulo)
+
+        return f"Exito: {mensaje} Entregado a {usuario_encontrado.nombre}."
+
+    
+# 1. Preparamos todo
+biblio = Biblioteca("Mi Biblioteca")
+biblio.registrar_libro(LibroFisico("Monster", "Frank Peretti", "9781"))
+biblio.registrar_usuario(Estudiante("Diego Aaron", "123", "Ingeniería"))
+
+# 2. Hacemos el préstamo
+resultado = biblio.realizar_prestamo("123", "Monster")
+print(resultado)
+
+# 3. Intentamos prestar el mismo libro a otra persona que no existe
+resultado_malo = biblio.realizar_prestamo("999", "Monster")
+print(resultado_malo)
