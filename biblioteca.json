@@ -1,0 +1,28 @@
+{
+    "nombre": "Biblioteca Central",
+    "usuarios": [
+        {
+            "nombre": "Diego Aaron",
+            "cedula": "123",
+            "libros_prestados": [
+                "El Principito"
+            ],
+            "carrera": "Ingeniería",
+            "limite_libros": 3
+        }
+    ],
+    "libros": [
+        {
+            "titulo": "Monster",
+            "autor": "Frank Peretti",
+            "isbn": "9781",
+            "disponible": true
+        },
+        {
+            "titulo": "El Principito",
+            "autor": "Antoine de Saint-Exupéry",
+            "isbn": "9782",
+            "disponible": false
+        }
+    ]
+}
