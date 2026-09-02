@@ -1,6 +1,4 @@
 from exceptions import LibroNoEncontradoError, UsuarioNoEncontradoError
-from libros import LibroFisico, libroDigital
-from usuarios import Estudiante, Profesor
 
 
 class Biblioteca:

@@ -6,15 +6,26 @@ from libros import LibroFisico
 from persistencia import Persistencia
 from usuarios import Estudiante
 
+print("Iniciando el sistema de la biblioteca...")
+
 # 1. Preparamos nuestra biblioteca con datos iniciales
-mi_biblio = Biblioteca("Biblioteca Central")
+#mi_biblio = Biblioteca("Biblioteca Central") ###Ya no usamos eso por que hora el nombre de la biblioteca se carga desde el archivo JSON
+
 # Preparamos nuestra herramienta de guardado
 guardador = Persistencia()
 
-# Agregamos un par de libros y tu usuario para tener con qué probar
-mi_biblio.registrar_libro(LibroFisico("Monster", "Frank Peretti", "9781"))
-mi_biblio.registrar_libro(LibroFisico("El Principito", "Antoine de Saint-Exupéry", "9782"))
-mi_biblio.registrar_usuario(Estudiante("Diego Aaron", "123", "Ingeniería"))
+# Intentamos cargar los datos desde el archivo JSON
+mi_biblio = guardador.cargar_datos()
+
+# Si no hay datos previos, creamos una nueva biblioteca y agregamos algunos libros y usuarios de ejemplo
+if mi_biblio is None:
+    print("No se enocontron datos previos. Creando una nueva biblioteca...")
+    mi_biblio = Biblioteca("Biblioteca Central")
+    mi_biblio.registrar_libro(LibroFisico("Monster", "Frank Peretti", "9781"))
+    mi_biblio.registrar_libro(LibroFisico("El Principito", "Antoine de Saint-Exupéry", "9782"))
+    mi_biblio.registrar_usuario(Estudiante("Diego Aaron", "123", "Ingeniería"))
+else:
+    print(f"Base de datos cargada con exito: {len(mi_biblio.libros)} libros encontrados")
 
 print(f"--- Bienvenido al sistema de la {mi_biblio.nombre} ---")
 

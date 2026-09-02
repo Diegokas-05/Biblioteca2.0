@@ -4,11 +4,12 @@
         {
             "nombre": "Diego Aaron",
             "cedula": "123",
-            "libros_prestados": [
-                "El Principito"
-            ],
+            "libros_prestados": [],
             "carrera": "Ingeniería",
-            "limite_libros": 3
+            "limite_libros": 3,
+            "libros_prestado": [
+                "Monster"
+            ]
         }
     ],
     "libros": [
@@ -16,7 +17,7 @@
             "titulo": "Monster",
             "autor": "Frank Peretti",
             "isbn": "9781",
-            "disponible": true
+            "disponible": false
         },
         {
             "titulo": "El Principito",
